@@ -1,0 +1,126 @@
+<!doctype html>
+<html x-data="{colorMode: localStorage.getItem('colorMode') || localStorage.setItem('colorMode', 'light')}" x-init="$watch('colorMode', val => localStorage.setItem('colorMode', val))" x-bind:class="{'dark': colorMode === 'dark' || (colorMode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth h-full overflow-y-auto">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- The Play CDN is designed for development purposes only, and is not the best choice for production. -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
+  <link id="heading-font" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&display=swap" media="all" />
+  <style>
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  </style>
+  <script>
+    window.tailwind.config = {
+      "darkMode": "class",
+      "theme": {
+        "fontFamily": {
+          "heading": ["DM Sans", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "\"Segoe UI\"", "Roboto", "\"Helvetica Neue\"", "Arial", "\"Noto Sans\"", "sans-serif", "\"Apple Color Emoji\"", "\"Segoe UI Emoji\"", "\"Segoe UI Symbol\"", "\"Noto Color Emoji\""],
+          "body": ["DM Sans", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "\"Segoe UI\"", "Roboto", "\"Helvetica Neue\"", "Arial", "\"Noto Sans\"", "sans-serif", "\"Apple Color Emoji\"", "\"Segoe UI Emoji\"", "\"Segoe UI Symbol\"", "\"Noto Color Emoji\""]
+        },
+        "extend": {
+          "borderRadius": {
+            "global": "5px"
+          },
+          "colors": {
+            "primary": {
+              "50": "#f6f8fe",
+              "100": "#e8eefd",
+              "200": "#d0defb",
+              "300": "#abc3f7",
+              "400": "#5787ef",
+              "500": "#1452d7",
+              "600": "#0e3b9a",
+              "700": "#0a2b70",
+              "800": "#061941",
+              "900": "#030c21",
+              "950": "#020713",
+              "DEFAULT": "#2563EB"
+            },
+            "secondary": {
+              "50": "#fef6fa",
+              "100": "#fbe9f1",
+              "200": "#f8d3e4",
+              "300": "#f2b1ce",
+              "400": "#e4629d",
+              "500": "#c9226d",
+              "600": "#90184e",
+              "700": "#691239",
+              "800": "#3d0a21",
+              "900": "#1f0511",
+              "950": "#110309",
+              "DEFAULT": "#db2777"
+            }
+          }
+        }
+      },
+      "plugins": [window.tailwind.plugin.withOptions(({
+        prefix = "ui"
+      } = {}) => {
+        return ({
+          addVariant
+        }) => {
+          for (let state of ["open", "checked", "selected", "active", "disabled"]) {
+            addVariant(`${prefix}-${state}`, [
+              `&[data-headlessui-state~="${state}"]`,
+              `:where([data-headlessui-state~="${state}"]) &`,
+            ]);
+
+            addVariant(`${prefix}-not-${state}`, [
+              `&[data-headlessui-state]:not([data-headlessui-state~="${state}"])`,
+              `:where([data-headlessui-state]:not([data-headlessui-state~="${state}"])) &:not([data-headlessui-state])`,
+            ]);
+          }
+        };
+      }), ]
+    };
+  </script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+</head>
+
+<body x-data="{'openDialogId': ''}" x-on:keydown.escape="openDialogId=''" class='font-body antialiased h-full font-body antialiased text-[#41454c] bg-[#FFFFFF] dark:text-[#b3c3d9] dark:bg-[#000000]'>
+  <section class="">
+    <div class="flex relative justify-between items-center mx-auto max-w-screen-xl text-gray-700"><a class="cursor-pointer" href="#"><img class="block max-w-full h-8 align-middle" alt="No alt" src="https://ik.imagekit.io/n0uvizrukm2/websites/578-5785080_laravel-6-logo-png-transparent-png_fdqlov_jrYXtJwvX1.png?ik-sdk-version=javascript-1.4.3&amp;updatedAt=1661846112469" /></a>
+      <nav class="hidden flex-row justify-center items-center w-auto font-semibold gap-x-12 md:flex"><a class="cursor-pointer" href="#"></a><a class="cursor-pointer" href="#">Work</a><a class="cursor-pointer" href="#">About me</a><a class="cursor-pointer" href="#">Resume</a><a class="cursor-pointer" href="#">Contact me</a></nav>
+      <div class="hidden absolute inset-x-0 z-50 py-2 w-full transform">
+        <nav class="p-3 bg-white rounded-lg transform shadow-xs"><a class="block py-3 px-6 font-semibold border-t-0 border-r-0 border-l-0 border-b border-blue-100 border-indigo-100 border-solid cursor-pointer box-border" href="#">Home</a><a class="block py-3 px-6 font-semibold border-t-0 border-r-0 border-l-0 border-b border-blue-100 border-indigo-100 border-solid cursor-pointer box-border" href="#">Services</a><a class="block py-3 px-6 font-semibold border-t-0 border-r-0 border-l-0 border-b border-blue-100 border-indigo-100 border-solid cursor-pointer box-border" href="#">Pricing</a><a class="block py-3 px-6 font-semibold border-t-0 border-r-0 border-l-0 border-b border-blue-100 border-indigo-100 border-solid cursor-pointer box-border" href="#">Blog</a><a class="block py-3 px-6 font-semibold border-t-0 border-r-0 border-l-0 border-b border-blue-100 border-indigo-100 border-solid cursor-pointer box-border" href="#">Contact</a><a class="block py-3 px-6 font-semibold border-t-0 border-r-0 border-l-0 border-b border-blue-100 border-indigo-100 border-solid cursor-pointer box-border" href="#">Login</a><a class="block py-3 text-sm font-semibold leading-5 text-center text-white bg-green-900 rounded-lg cursor-pointer" href="#">Get started</a></nav>
+      </div>
+      <div :data-headlessui-state="open ? &#x27;open&#x27;: &#x27;&#x27;" x-data="{open: false}" class="block relative md:hidden">
+        <div :data-headlessui-state="open ? &#x27;open&#x27;: &#x27;&#x27;" class="inline-flex w-full justify-center rounded-md text-sm font-medium dark:text-white hover:bg-opacity-30" x-on:click="open = !open"><button id="yuBzpr" class="relative z-30 w-8 text-center text-gray-300 normal-case bg-none rounded-md cursor-pointer bg-primary-500 p-[3px] md:hidden"><span class="block align-middle"><svg class="block align-middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block align-middle">
+                <path fill-rule="evenodd" d="M3 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm0 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm0 5a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z" clip-rule="evenodd" class=""></path>
+              </svg></span></button></div>
+        <ul :data-headlessui-state="open ? &#x27;open&#x27;: &#x27;&#x27;" class="absolute right-0 text-gray-900 w-56 mt-2 origin-top-right bg-white divide-gray-100 rounded-md shadow-green-800 shadow" x-show="open">
+          <li x-data="{active: false}" :data-headlessui-state="active ? &#x27;active&#x27; : &#x27;&#x27;" class="group flex rounded-md items-center w-full px-2 py-2 text-sm" x-on:mouseenter="active = true" x-on:mouseleave="active = false"><a href="#">Menu Item 1</a></li>
+          <li x-data="{active: false}" :data-headlessui-state="active ? &#x27;active&#x27; : &#x27;&#x27;" class="group flex rounded-md items-center w-full px-2 py-2 text-sm" x-on:mouseenter="active = true" x-on:mouseleave="active = false"><a href="#">Menu Item 2</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container px-6 py-16 mx-auto text-center md:py-20 xl:py-28">
+      <div class="max-w-lg mx-auto md:max-w-2xl xl:max-w-3xl">
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-white md:text-5xl xl:text-6xl">Hi! This is Thet 👋</h1>
+        <p class="mt-6 xl:max-w-lg xl:mx-auto">Thet is enthusiastic about creating user-friendly experiences that simplify people&#x27;s lives and increase productivity. She focuses on designing both functional and visually appealing solutions.</p>
+      </div>
+    </div>
+  </section>
+  <script defer src="https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      offset: 50,
+      duration: 800
+    });
+  </script>
+
+
+</body>
+
+</html>
